@@ -40,3 +40,4 @@ RUN source "$HOME/.cargo/env"
 RUN echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
 
 CMD ["bash"]
+
