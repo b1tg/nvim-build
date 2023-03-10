@@ -34,4 +34,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: centos-dev:latest     
+          tags: bba74/centos-dev:latest     
