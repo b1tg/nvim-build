@@ -1,4 +1,14 @@
-FROM centos:centos7.4.1708                                                                                                          RUN yum install -y \                                                                                                                    vim bash-com* openssh-clients openssh-server iproute cronie tmux wget;\                                                             yum group install -y "Development Tools";yum clean all;\                                                                            localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8 && \                                                                                     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime                                                                         ENV LANG=en_US.UTF-8                                                                                                                                                                                                                                                    RUN yum install -y epel-release                                                                                                     RUN yum install -y ninja-build libtool cmake3 make pkgconfig unzip gettext curl                                                     RUN yum install -y libmpc-devel mpfr-devel gmp-devel                                                                                RUN curl ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-4.9.2/gcc-4.9.2.tar.bz2 -O
+FROM centos:centos7.4.1708
+RUN yum install -y \
+    vim bash-com* openssh-clients openssh-server iproute cronie tmux wget;\
+    yum group install -y "Development Tools";yum clean all;\
+    localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8 && \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+ENV LANG=en_US.UTF-8
+RUN yum install -y epel-release
+RUN yum install -y ninja-build libtool cmake3 make pkgconfig unzip gettext curl
+RUN yum install -y libmpc-devel mpfr-devel gmp-devel
+RUN curl ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-4.9.2/gcc-4.9.2.tar.bz2 -O
 RUN tar xvfj gcc-4.9.2.tar.bz2 && cd gcc-4.9.2
 RUN cd gcc-4.9.2 && ./configure --disable-multilib --enable-languages=c,c++ && \
     make -j 4 && make install && rm -rf gcc-4.9.2 gcc-4.9.2.tar.bz2
@@ -8,8 +18,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/cc
 RUN git clone https://github.com/neovim/neovim --depth=1
 RUN cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
 RUN cd neovim && make install && rm -rf neovim
-#ENV LANG=zh_CN.UTF-8
-
+# ENV LANG=zh_CN.UTF-8
 # NyaMisty/simple_dev_docker
 RUN yum install -y zlib-devel openssl-devel bzip2-devel libsqlite3x-devel
 RUN yum install -y libffi-devel # fix missing _ctypes when install mitmproxy
